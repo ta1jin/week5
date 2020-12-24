@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start":"node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "node ./index.js --experimental-modules"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,4 +15,3 @@
     "express": "^4.17.1"
   }
 }
-© 2020 GitHub, Inc.

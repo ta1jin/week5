@@ -16,25 +16,25 @@ export default (express,bodyParser,createReadStream,crypto,http)=>{
                 res.set({ 'Content-Type': 'text/plain; charset=utf-8' });
                 createReadStream(import.meta.url.substring(7)).pipe(res);
             })
-        .get('/sha1/:input', r => {
+        .get('/sha1/:input', (req, res) => {
+            const { input } = req.params;
             const shasum = crypto.createHash('sha1');
-            shasum.update(r.params.input);
-            r.res.send(shasum.digest('hex'));
+            shasum.update(input);
+            res.send(shasum.digest('hex'));
         })
         .all('/req/', (req, res) => {
-                let url = req.method === 'POST' ? req.body.addr : req.query.addr;
-
-                http.get(url, (response) => {
-                    let data = '';
-                    response.on('data', (chunk) => (data += chunk));
-                    response.on('end', () => {
-                        res
-                            .set({
-                                'Content-Type': 'text/plain; charset=utf-8',
-                            })
-                            .end(data);
-                    });
-                });
+               let url = req.method === 'POST' ? req.body.addr : req.query.addr;
+               http.get(url, (response) => {
+                let data = '';
+                response.on('data', (chunk) => (data += chunk));
+              response.on('end', () => {
+                res
+                  .set({
+                    'Content-Type': 'text/plain; charset=utf-8',
+                })
+              .end(data);
+      });
+    });
             })
         .all('*', (req, res) => {
                 res.send('ta1jin');
